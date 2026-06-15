@@ -3,7 +3,7 @@ import { FormationSelector } from './FormationSelector';
 import { PlayerSelector } from './PlayerSelector';
 import { formations } from '../data/mockData';
 
-interface Props { mode: BoardMode; clubs: Club[]; players: Player[]; clubId: string; formationId: string; selectedIds: string[]; onModeChange: (mode: BoardMode) => void; onClubChange: (clubId: string) => void; onFormationChange: (id: string) => void; onTogglePlayer: (id: string) => void; onReset: () => void; onClear: () => void; }
+interface Props { mode: BoardMode; clubs: Club[]; players: Player[]; clubId: string; formationId: string; selectedIds: string[]; status: string; onModeChange: (mode: BoardMode) => void; onClubChange: (clubId: string) => void; onFormationChange: (id: string) => void; onTogglePlayer: (id: string) => void; onReset: () => void; onClear: () => void; onSave: () => void; onLoad: () => void; onExport: () => void; }
 
 export function ControlPanel(props: Props) {
   const selectablePlayers = props.mode === 'club' ? props.players.filter((player) => player.clubId === props.clubId) : props.players;
@@ -14,6 +14,8 @@ export function ControlPanel(props: Props) {
     <FormationSelector formations={formations} selectedFormationId={props.formationId} onChange={props.onFormationChange} />
     <div className="selection-header"><strong>Players</strong><span>{props.selectedIds.length}/11 selected</span></div>
     <PlayerSelector players={selectablePlayers} clubs={props.clubs} selectedIds={props.selectedIds} disabled={props.selectedIds.length >= 11} onToggle={props.onTogglePlayer} />
-    <div className="actions"><button onClick={props.onReset}>Reset positions</button><button className="danger" onClick={props.onClear}>Clear board</button></div>
+    {props.status && <p className="status" role="status">{props.status}</p>}
+    <div className="actions primary-actions"><button onClick={props.onSave}>Save</button><button onClick={props.onLoad}>Load</button><button onClick={props.onExport} disabled={!props.selectedIds.length}>Export PNG</button></div>
+    <div className="actions"><button onClick={props.onReset} disabled={!props.selectedIds.length}>Reset positions</button><button className="danger" onClick={props.onClear} disabled={!props.selectedIds.length}>Clear board</button></div>
   </aside>;
 }
