@@ -1,9 +1,23 @@
 export type BoardMode = 'club' | 'best';
+export type PlayerPoolType = 'club' | 'league' | 'nationalTeam';
+
+export interface League {
+  id: string;
+  name: string;
+  country: string;
+}
+
+export interface NationalTeam {
+  id: string;
+  name: string;
+  flagUrl: string;
+}
 
 export interface Club {
   id: string;
   name: string;
   logoUrl: string;
+  leagueId: string;
 }
 
 export interface Player {
@@ -12,6 +26,7 @@ export interface Player {
   position: string;
   shirtNumber: number;
   clubId: string;
+  nationalTeamId: string;
   profileImageUrl?: string;
 }
 
