@@ -188,7 +188,7 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 ## Camera controls
 
 - Choose a preset camera: `Top`, `Broadcast`, `Isometric`, or `Sideline`.
-- Use the rotate, tilt, and zoom buttons for precise adjustments.
+- Use the rotate, tilt, and zoom sliders for precise adjustments.
 - Click and hold the pitch background, then drag horizontally to rotate and vertically to change tilt.
 - Drag player markers directly to move players; dragging a marker will not rotate the camera.
 

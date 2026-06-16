@@ -5,7 +5,7 @@ import { PlayerSelector } from './PlayerSelector';
 import { formations } from '../data/mockData';
 import { getPoolLabel, getPlayersForPool } from '../utils/playerPools';
 
-interface Props { mode: BoardMode; playerPoolType: PlayerPoolType; selectedPoolId: string; clubs: Club[]; leagues: League[]; nationalTeams: NationalTeam[]; players: Player[]; formationId: string; cameraAngle: CameraAngle; cameraView: CameraView; selectedIds: string[]; status: string; onModeChange: (mode: BoardMode) => void; onPoolTypeChange: (type: PlayerPoolType) => void; onPoolChange: (poolId: string) => void; onFormationChange: (id: string) => void; onCameraAngleChange: (angle: CameraAngle) => void; onCameraNudge: (delta: Partial<CameraView>) => void; onCameraReset: () => void; onLoadExampleTeam: () => void; onTogglePlayer: (id: string) => void; onReset: () => void; onClear: () => void; onSave: () => void; onLoad: () => void; onExport: () => void; }
+interface Props { mode: BoardMode; playerPoolType: PlayerPoolType; selectedPoolId: string; clubs: Club[]; leagues: League[]; nationalTeams: NationalTeam[]; players: Player[]; formationId: string; cameraAngle: CameraAngle; cameraView: CameraView; selectedIds: string[]; status: string; onModeChange: (mode: BoardMode) => void; onPoolTypeChange: (type: PlayerPoolType) => void; onPoolChange: (poolId: string) => void; onFormationChange: (id: string) => void; onCameraAngleChange: (angle: CameraAngle) => void; onCameraViewChange: (view: CameraView) => void; onCameraReset: () => void; onLoadExampleTeam: () => void; onTogglePlayer: (id: string) => void; onReset: () => void; onClear: () => void; onSave: () => void; onLoad: () => void; onExport: () => void; }
 
 export function ControlPanel(props: Props) {
   const selectablePlayers = getPlayersForPool(props.playerPoolType, props.selectedPoolId, props.players, props.clubs);
@@ -18,7 +18,7 @@ export function ControlPanel(props: Props) {
     {props.playerPoolType === 'league' && <label className="field">League<select value={props.selectedPoolId} onChange={(e) => props.onPoolChange(e.target.value)}><option value="">Choose a league</option>{props.leagues.map((league) => <option key={league.id} value={league.id}>{league.name} · {league.country}</option>)}</select></label>}
     {props.playerPoolType === 'nationalTeam' && <label className="field">National team<select value={props.selectedPoolId} onChange={(e) => props.onPoolChange(e.target.value)}><option value="">All national teams</option>{props.nationalTeams.map((team) => <option key={team.id} value={team.id}>{team.name}</option>)}</select></label>}
     <FormationSelector formations={formations} selectedFormationId={props.formationId} onChange={props.onFormationChange} />
-    <CameraAngleSelector selectedAngle={props.cameraAngle} cameraView={props.cameraView} onChange={props.onCameraAngleChange} onNudge={props.onCameraNudge} onReset={props.onCameraReset} />
+    <CameraAngleSelector selectedAngle={props.cameraAngle} cameraView={props.cameraView} onChange={props.onCameraAngleChange} onViewChange={props.onCameraViewChange} onReset={props.onCameraReset} />
     <div className="selection-header"><strong>Players</strong><span>{props.selectedIds.length}/11 selected</span></div>
     <p className="pool-summary">Showing {selectablePlayers.length} players from {poolLabel}.</p>
     <button className="example-button" onClick={props.onLoadExampleTeam}>Load example team</button>
