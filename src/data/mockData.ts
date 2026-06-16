@@ -4,6 +4,7 @@ export const leagues: League[] = [
   { id: 'premier', name: 'Premier League', country: 'England' },
   { id: 'laliga', name: 'La Liga', country: 'Spain' },
   { id: 'seriea', name: 'Serie A', country: 'Italy' },
+  { id: 'sandbox', name: 'Sandbox Test League', country: 'Demo' },
 ];
 
 export const nationalTeams: NationalTeam[] = [
@@ -21,17 +22,31 @@ export const nationalTeams: NationalTeam[] = [
   { id: 'ukraine', name: 'Ukraine', flagUrl: 'https://placehold.co/96x96/1d4ed8/facc15?text=UKR' },
   { id: 'uruguay', name: 'Uruguay', flagUrl: 'https://placehold.co/96x96/38bdf8/ffffff?text=URU' },
   { id: 'algeria', name: 'Algeria', flagUrl: 'https://placehold.co/96x96/ffffff/15803d?text=ALG' },
+  { id: 'testland', name: 'Testland', flagUrl: 'https://placehold.co/96x96/5eead4/07111f?text=TST' },
 ];
 
 export const clubs: Club[] = [
   { id: 'arsenal', name: 'North London Reds', logoUrl: 'https://placehold.co/96x96/ef4444/ffffff?text=NLR', leagueId: 'premier' },
   { id: 'barcelona', name: 'Catalan Blaugrana', logoUrl: 'https://placehold.co/96x96/1d4ed8/facc15?text=CB', leagueId: 'laliga' },
   { id: 'milan', name: 'Milano Rossoneri', logoUrl: 'https://placehold.co/96x96/111827/ef4444?text=MR', leagueId: 'seriea' },
+  { id: 'pampouks-xi', name: 'Pampouks Example XI', logoUrl: 'https://placehold.co/96x96/5eead4/07111f?text=PXI', leagueId: 'sandbox' },
 ];
 
 const profile = (text: string, bg = '0f172a') => `https://placehold.co/120x120/${bg}/ffffff?text=${encodeURIComponent(text)}`;
 
 export const players: Player[] = [
+
+  { id: 'x1', name: 'Theo Keeper', position: 'GK', shirtNumber: 1, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('TK', '134e4a') },
+  { id: 'x2', name: 'Rico Rightback', position: 'RB', shirtNumber: 2, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('RR', '134e4a') },
+  { id: 'x3', name: 'Cato Centerback', position: 'CB', shirtNumber: 4, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('CC', '134e4a') },
+  { id: 'x4', name: 'Bruno Blocker', position: 'CB', shirtNumber: 5, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('BB', '134e4a') },
+  { id: 'x5', name: 'Luca Leftback', position: 'LB', shirtNumber: 3, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('LL', '134e4a') },
+  { id: 'x6', name: 'Milo Anchor', position: 'DM', shirtNumber: 6, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('MA', '134e4a') },
+  { id: 'x7', name: 'Nico Tempo', position: 'CM', shirtNumber: 8, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('NT', '134e4a') },
+  { id: 'x8', name: 'Omar Creator', position: 'AM', shirtNumber: 10, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('OC', '134e4a') },
+  { id: 'x9', name: 'Pablo Winger', position: 'RW', shirtNumber: 7, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('PW', '134e4a') },
+  { id: 'x10', name: 'Quinn Striker', position: 'ST', shirtNumber: 9, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('QS', '134e4a') },
+  { id: 'x11', name: 'Sami Winger', position: 'LW', shirtNumber: 11, clubId: 'pampouks-xi', nationalTeamId: 'testland', profileImageUrl: profile('SW', '134e4a') },
   { id: 'a1', name: 'Aaron Ramsdale', position: 'GK', shirtNumber: 1, clubId: 'arsenal', nationalTeamId: 'england', profileImageUrl: profile('AR') },
   { id: 'a2', name: 'Ben White', position: 'RB', shirtNumber: 4, clubId: 'arsenal', nationalTeamId: 'england', profileImageUrl: profile('BW') },
   { id: 'a3', name: 'William Saliba', position: 'CB', shirtNumber: 2, clubId: 'arsenal', nationalTeamId: 'france', profileImageUrl: profile('WS') },

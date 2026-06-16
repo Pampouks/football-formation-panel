@@ -18,14 +18,188 @@ npm run test
 npm run build
 ```
 
+## Quick testing
+
+Use **Load example team** in the control panel to select the `Pampouks Example XI` mock club and place 11 test players into the current formation. This is intended as a fast smoke-test for player pools, marker rendering, dragging, save/load, export, and camera controls.
+
+## Mock data structure
+
+All editable demo data lives in `src/data/mockData.ts`. The TypeScript shapes are defined in `src/types/index.ts`.
+
+### League
+
+A league groups clubs together for the **Leagues** player pool.
+
+```ts
+interface League {
+  id: string;
+  name: string;
+  country: string;
+}
+```
+
+Example:
+
+```ts
+{ id: 'premier', name: 'Premier League', country: 'England' }
+```
+
+### NationalTeam
+
+A national team groups players by `nationalTeamId` for the **National Teams** player pool.
+
+```ts
+interface NationalTeam {
+  id: string;
+  name: string;
+  flagUrl: string;
+}
+```
+
+Example:
+
+```ts
+{ id: 'england', name: 'England', flagUrl: 'https://placehold.co/96x96/f8fafc/1d4ed8?text=ENG' }
+```
+
+### Club / team
+
+A club is the main team object used by the **Clubs** player pool. Each club belongs to one league through `leagueId`.
+
+```ts
+interface Club {
+  id: string;
+  name: string;
+  logoUrl: string;
+  leagueId: string;
+}
+```
+
+Example:
+
+```ts
+{
+  id: 'pampouks-xi',
+  name: 'Pampouks Example XI',
+  logoUrl: 'https://placehold.co/96x96/5eead4/07111f?text=PXI',
+  leagueId: 'sandbox'
+}
+```
+
+To add a new team, add one object to the `clubs` array and make sure its `leagueId` matches an existing league id.
+
+### Player
+
+A player belongs to one club and one national team. Club rosters are built from `clubId`; national-team rosters are built from `nationalTeamId`.
+
+```ts
+interface Player {
+  id: string;
+  name: string;
+  position: string;
+  shirtNumber: number;
+  clubId: string;
+  nationalTeamId: string;
+  profileImageUrl?: string;
+}
+```
+
+Example:
+
+```ts
+{
+  id: 'x10',
+  name: 'Quinn Striker',
+  position: 'ST',
+  shirtNumber: 9,
+  clubId: 'pampouks-xi',
+  nationalTeamId: 'testland',
+  profileImageUrl: profile('QS', '134e4a')
+}
+```
+
+To update a team roster, edit player objects so their `clubId` matches the target club id. To update national-team rosters, edit `nationalTeamId`. If `profileImageUrl` is missing, the player marker shows initials as a fallback.
+
+### Formation
+
+A formation maps the selected 11 players to default pitch coordinates.
+
+```ts
+interface FormationCoordinate {
+  role: string;
+  x: number;
+  y: number;
+}
+
+interface Formation {
+  id: string;
+  name: string;
+  coordinates: FormationCoordinate[];
+}
+```
+
+Example coordinate:
+
+```ts
+{ role: 'GK', x: 50, y: 91 }
+```
+
+Coordinates are percentages from the pitch's top-left corner. Each formation should provide 11 coordinates, one for each selected player.
+
+### BoardPlayer
+
+A `BoardPlayer` is runtime board state, not roster data. It stores where a selected player currently sits on the pitch.
+
+```ts
+interface BoardPlayer {
+  playerId: string;
+  x: number;
+  y: number;
+  role: string;
+}
+```
+
+These records are created from selected players plus the selected formation, then updated when markers are dragged.
+
+### CameraView
+
+Camera settings control the 3D pitch transform.
+
+```ts
+interface CameraView {
+  tilt: number;
+  rotation: number;
+  zoom: number;
+}
+```
+
+Preset camera values live in `src/utils/camera.ts`. User-adjusted camera values are saved as part of local board state.
+
+## How the relationships work
+
+- `League.id` links to `Club.leagueId`.
+- `Club.id` links to `Player.clubId`.
+- `NationalTeam.id` links to `Player.nationalTeamId`.
+- `Player.id` links to `BoardPlayer.playerId`.
+- `Formation.coordinates` are assigned to selected players in order.
+
+So if you want a player to appear in a club roster, set their `clubId` to that club's `id`. If you want a player to appear in a national-team roster, set their `nationalTeamId` to that national team's `id`.
+
+## Camera controls
+
+- Choose a preset camera: `Top`, `Broadcast`, `Isometric`, or `Sideline`.
+- Use the rotate, tilt, and zoom buttons for precise adjustments.
+- Click and hold the pitch background, then drag horizontally to rotate and vertically to change tilt.
+- Drag player markers directly to move players; dragging a marker will not rotate the camera.
+
 ## Component structure
 
 - `App` loads the tactics board shell.
-- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, formation, draggable board positions, local save/load, 3D camera-angle selection, and PNG export actions.
-- `ControlPanel` groups mode, player-pool tabs, club/league/national-team selector, formation, 3D camera angles, player, reset, save/load, export, and clear controls.
+- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, formation, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
+- `ControlPanel` groups mode, player-pool tabs, club/league/national-team selector, formation, camera controls, example-team loading, player, reset, save/load, export, and clear controls.
 - `FormationSelector` renders formation choices.
 - `PlayerSelector` renders the selectable squad/player pool with club and national-team context.
-- `Pitch` renders the responsive pitch, applies selectable 3D camera-angle classes, and handles smooth pointer-based dragging while keeping markers inside bounds.
+- `Pitch` renders the responsive pitch, applies selectable camera transforms, supports click-and-hold camera rotation, and handles smooth pointer-based player dragging while keeping markers inside bounds.
 - `PlayerMarker` renders draggable circular player markers with profile images in Club XI mode and club logos in Best XI mode.
 
-Mock leagues, national teams, clubs, players, and formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`.
+Mock leagues, national teams, clubs, players, and formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`; camera presets and clamping live in `src/utils/camera.ts`.

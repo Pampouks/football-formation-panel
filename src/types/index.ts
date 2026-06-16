@@ -2,6 +2,12 @@ export type BoardMode = 'club' | 'best';
 export type PlayerPoolType = 'club' | 'league' | 'nationalTeam';
 export type CameraAngle = 'top' | 'broadcast' | 'isometric' | 'sideline';
 
+export interface CameraView {
+  tilt: number;
+  rotation: number;
+  zoom: number;
+}
+
 export interface League {
   id: string;
   name: string;

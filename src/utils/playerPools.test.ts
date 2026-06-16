@@ -7,6 +7,12 @@ describe('player pool filtering', () => {
     expect(getPlayersForPool('club', 'arsenal', players, clubs).every((player) => player.clubId === 'arsenal')).toBe(true);
   });
 
+  it('has a complete example club XI for smoke testing', () => {
+    const examplePlayers = getPlayersForPool('club', 'pampouks-xi', players, clubs);
+
+    expect(examplePlayers).toHaveLength(11);
+  });
+
   it('filters players by league through club membership', () => {
     const premierPlayers = getPlayersForPool('league', 'premier', players, clubs);
     const premierClubIds = new Set(clubs.filter((club) => club.leagueId === 'premier').map((club) => club.id));
