@@ -56,8 +56,10 @@ export function Pitch({ boardPlayers, players, clubs, mode, cameraAngle, cameraV
     setIsRotatingCamera(false);
   };
 
+  const rotationPressure = Math.abs(Math.sin((cameraView.rotation * Math.PI) / 180));
+  const cameraFit = Math.max(.62, 1 - rotationPressure * .28 - (cameraView.tilt / 72) * .08);
   const pitchStyle = {
-    '--camera-transform': `rotateX(${cameraView.tilt}deg) rotateZ(${cameraView.rotation}deg) scale(${cameraView.zoom})`,
+    '--camera-transform': `rotateX(${cameraView.tilt}deg) rotateZ(${cameraView.rotation}deg) scale(${cameraView.zoom * cameraFit})`,
   } as CSSProperties;
 
   return <div className={`pitch-stage camera-${cameraAngle} ${isRotatingCamera ? 'rotating-camera' : ''}`}><div ref={pitchRef} className="pitch" style={pitchStyle} onPointerDown={startCameraRotate} onPointerMove={updateCameraRotate} onPointerUp={stopPointerAction} onPointerCancel={stopPointerAction}>
