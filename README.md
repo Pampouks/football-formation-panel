@@ -20,7 +20,7 @@ npm run build
 
 ## Quick testing
 
-Use **Load example team** in the control panel to select the `Pampouks Example XI` mock club and place 11 test players into the current formation. This is intended as a fast smoke-test for player pools, marker rendering, dragging, save/load, export, and camera controls.
+Use **Load example team** in the left selection panel to select the `Pampouks Example XI` mock club and place 11 test players into the current formation. This is intended as a fast smoke-test for player pools, marker rendering, dragging, save/load, export, and camera controls.
 
 ## Mock data structure
 
@@ -192,11 +192,23 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 - Click and hold the pitch background, then drag horizontally to rotate and vertically to change tilt.
 - Drag player markers directly to move players; dragging a marker will not rotate the camera.
 
+
+## Layout
+
+The desktop UI is split into three panels so the pitch no longer competes with one long scrolling control column:
+
+1. **Left selection panel** — mode, player-pool type, club/league/national-team selection, formation, example team, and the player list.
+2. **Center field panel** — the responsive pitch stays centered and constrained within its board area.
+3. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export.
+
+On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
+
 ## Component structure
 
 - `App` loads the tactics board shell.
 - `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, formation, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
-- `ControlPanel` groups mode, player-pool tabs, club/league/national-team selector, formation, camera controls, example-team loading, player, reset, save/load, export, and clear controls.
+- `ControlPanel` is the left selection panel for mode, player-pool tabs, club/league/national-team selector, formation, example-team loading, and player selection.
+- `BoardToolsPanel` is the right-side tools panel for camera presets/sliders, save/load, PNG export, reset positions, clear board, and status messages.
 - `FormationSelector` renders formation choices.
 - `PlayerSelector` renders the selectable squad/player pool with club and national-team context.
 - `Pitch` renders the responsive pitch, applies selectable camera transforms, supports click-and-hold camera rotation, and handles smooth pointer-based player dragging while keeping markers inside bounds.
