@@ -188,10 +188,10 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Suggested spots and styling
 
-- Use the **Suggested spots** buttons in the position panel, or click a ghost spot on the pitch, to choose which formation role the next selected player should fill.
+- Use the ghost spots directly on the pitch to choose which formation role the next selected player should fill.
 - Drag any suggested spot on the pitch to customize that role's default location; assigned players move with the customized spot, with pointer updates smoothed through animation-frame scheduling.
-- Use **Board tools → Team style** to scale player icons, change the kit accent color, upload a custom board image, and upload a custom player kit image used by every marker and PNG export.
-- **Reset positions** moves selected players back to the current suggested spot locations, including any custom spot edits.
+- Use **Board tools → Team style** to scale player icons, change the kit accent color, toggle marker labels, upload a custom board image, upload a custom player kit image, and adjust pitch line opacity.
+- Use the pinned top bar to save, load, export PNG, reset positions, or clear the board from one slim action area.
 
 ## Camera controls
 
@@ -206,20 +206,19 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 The desktop UI removes the oversized headline and uses compact working panels with reduced spacing so the pitch, selectors, tools, and player list can fit in one screen area more comfortably:
 
-1. **Player selection panel** — Club XI / Best XI tabs, a compact club/league/nations source switcher, the active source selector, example-team loading, and the player list in its own scrollable panel.
-2. **Position selection panel** — formation selection and suggested role spots in a separate panel so player rows stay visible.
-3. **Center field panel** — the responsive pitch stays centered in a capped-width board area with only a small formation badge and expandable camera control.
-4. **Right tools panel** — compact marker styling, image uploads, save/load, reset, clear, and image export; the camera starts as a small expandable field-panel control.
+1. **Pinned top action bar** — save, load, export PNG, reset positions, clear board, and status in one slim row.
+2. **Player selection panel** — Club XI / Best XI tabs, a compact club/league/nations source switcher, the active source selector, example-team loading, and the player list in its own scrollable panel.
+3. **Center field panel** — the responsive pitch stays centered in a capped-width board area, with formation selection moved into the formation dropdown at the top of the field and suggested spots shown directly on the pitch.
+4. **Right tools panel** — team style and board settings for marker size, kit color, marker labels, pitch line opacity, custom board upload, and custom kit upload; the camera starts as a small expandable field-panel control.
 
-On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
+On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the action bar stays first, followed by the field, selection, and tools panels.
 
 ## Component structure
 
 - `App` loads the tactics board shell.
-- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, suggested/custom formation spots, marker styling, custom board/kit uploads, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
+- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, inline formation changes, suggested/custom formation spots, marker styling, board settings, custom board/kit uploads, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
 - `ControlPanel` is the compact player-selection panel for Club XI / Best XI mode, the collapsed club/league/nations source switcher, active source selector, example-team loading, and player selection.
-- `PositionPanel` is the dedicated position-selection panel for formation choice and suggested spot targeting.
-- `BoardToolsPanel` is the right-side tools panel for marker-size and kit-color sliders, custom board/kit uploads, save/load, PNG export, reset positions, clear board, and status messages.
+- `BoardToolsPanel` is the right-side tools panel for marker-size and kit-color sliders, marker-label toggling, pitch line opacity, and custom board/kit uploads.
 - `FormationSelector` renders formation choices.
 - `PlayerSelector` renders the selectable squad/player pool with club and national-team context.
 - `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, preferred-position highlights, custom spot dragging, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.

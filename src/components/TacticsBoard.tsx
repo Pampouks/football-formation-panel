@@ -11,7 +11,6 @@ import { BoardToolsPanel } from './BoardToolsPanel';
 import { CameraAngleSelector } from './CameraAngleSelector';
 import { ControlPanel } from './ControlPanel';
 import { Pitch } from './Pitch';
-import { PositionPanel } from './PositionPanel';
 
 const cloneFormationCoordinates = (formationId: string): FormationCoordinate[] => (formations.find((formation) => formation.id === formationId)?.coordinates ?? formations[0].coordinates).map((coordinate) => ({ ...coordinate }));
 const kitColorFromHue = (hue: number) => `hsl(${hue} 82% 58%)`;
@@ -34,6 +33,8 @@ export function TacticsBoard() {
   const [cameraLocked, setCameraLocked] = useState(false);
   const [markerScale, setMarkerScale] = useState(1);
   const [kitHue, setKitHue] = useState(169);
+  const [showPlayerLabels, setShowPlayerLabels] = useState(true);
+  const [pitchLineOpacity, setPitchLineOpacity] = useState(0.75);
   const [customBoardImageUrl, setCustomBoardImageUrl] = useState('');
   const [customKitImageUrl, setCustomKitImageUrl] = useState('');
   const [boardPlayers, setBoardPlayers] = useState<BoardPlayer[]>([]);
@@ -119,7 +120,7 @@ export function TacticsBoard() {
   const changePool = (nextPoolId: string) => { setSelectedPoolId(nextPoolId); clearSelection(); setStatus('Player pool changed. Pick a suggested spot, then pick your XI.'); };
 
   const saveBoard = () => {
-    saveBoardState({ mode, playerPoolType, selectedPoolId, formationId, formationCoordinates, activeRoleIndex, cameraAngle, cameraView, cameraLocked, markerScale, kitHue, customBoardImageUrl, customKitImageUrl, selectedIds, boardPlayers });
+    saveBoardState({ mode, playerPoolType, selectedPoolId, formationId, formationCoordinates, activeRoleIndex, cameraAngle, cameraView, cameraLocked, markerScale, kitHue, showPlayerLabels, pitchLineOpacity, customBoardImageUrl, customKitImageUrl, selectedIds, boardPlayers });
     setStatus('Board saved to this browser.');
   };
 
@@ -137,6 +138,8 @@ export function TacticsBoard() {
     setCameraLocked(saved.cameraLocked ?? false);
     setMarkerScale(saved.markerScale ?? 1);
     setKitHue(saved.kitHue ?? 169);
+    setShowPlayerLabels(saved.showPlayerLabels ?? true);
+    setPitchLineOpacity(saved.pitchLineOpacity ?? 0.75);
     setCustomBoardImageUrl(saved.customBoardImageUrl ?? '');
     setCustomKitImageUrl(saved.customKitImageUrl ?? '');
     setBoardPlayers(saved.boardPlayers);
@@ -157,9 +160,9 @@ export function TacticsBoard() {
   const poolHasSelectedPlayers = selectedIds.every((id) => selectedPoolPlayers.some((player) => player.id === id));
 
   return <main className="app-shell">
+    <div className="top-action-bar"><span>{poolHasSelectedPlayers ? status : 'Saved selection includes players outside the current pool.'}</span><button onClick={saveBoard}>Save</button><button onClick={loadBoard}>Load</button><button onClick={() => exportBoardImage({ boardPlayers, players, clubs, mode, formationName: currentFormationName, markerScale, kitColor, customBoardImageUrl, customKitImageUrl })} disabled={!selectedIds.length}>Export PNG</button><button onClick={() => { resetPositionsToSpots(); setStatus('Positions reset.'); }} disabled={!selectedIds.length}>Reset</button><button className="danger" onClick={() => { clearSelection(); setStatus('Board cleared.'); }} disabled={!selectedIds.length}>Clear</button></div>
     <ControlPanel mode={mode} playerPoolType={playerPoolType} selectedPoolId={selectedPoolId} clubs={clubs} leagues={leagues} nationalTeams={nationalTeams} players={players} selectedIds={selectedIds} preferredRole={activeRole} onModeChange={changeMode} onPoolTypeChange={changePoolType} onPoolChange={changePool} onLoadExampleTeam={loadExampleTeam} onTogglePlayer={togglePlayer} />
-    <PositionPanel formationId={formationId} formationCoordinates={formationCoordinates} boardPlayers={boardPlayers} players={players} activeRoleIndex={activeRoleIndex} highlightedRoles={highlightedRoles} onFormationChange={changeFormation} onSpotSelect={setActiveRoleIndex} />
-    <section className="board-area panel-card"><div className="board-top"><span>{currentFormationName}</span></div><details className="floating-camera-panel"><summary><span>Camera</span><strong>{cameraLocked ? 'Locked' : `${Math.round(cameraView.tilt)}° · ${Math.round(cameraView.rotation)}°`}</strong><button className={`camera-lock ${cameraLocked ? 'active' : ''}`} onClick={(event) => { event.preventDefault(); setCameraLocked((locked) => !locked); }}>{cameraLocked ? 'Unlock' : 'Lock'}</button></summary><CameraAngleSelector selectedAngle={cameraAngle} cameraView={cameraView} onChange={changeCameraAngle} onViewChange={changeCameraView} onReset={resetCamera} disabled={cameraLocked} /></details><Pitch boardPlayers={boardPlayers} formationCoordinates={formationCoordinates} activeRoleIndex={activeRoleIndex} players={players} clubs={clubs} mode={mode} cameraAngle={cameraAngle} cameraView={cameraView} markerScale={markerScale} kitColor={kitColor} customBoardImageUrl={customBoardImageUrl} customKitImageUrl={customKitImageUrl} cameraLocked={cameraLocked} highlightedRoles={highlightedRoles} onCameraViewChange={changeCameraView} onSelectFormationSpot={setActiveRoleIndex} onMoveFormationSpot={moveFormationSpot} onMovePlayer={(playerId, x, y) => setBoardPlayers((current) => current.map((item) => item.playerId === playerId ? { ...item, x, y } : item))} /></section>
-    <BoardToolsPanel selectedCount={selectedIds.length} status={poolHasSelectedPlayers ? status : 'Saved selection includes players outside the current pool.'} markerScale={markerScale} kitHue={kitHue} kitColor={kitColor} hasCustomBoard={Boolean(customBoardImageUrl)} hasCustomKit={Boolean(customKitImageUrl)} onBoardImageUpload={uploadBoardImage} onKitImageUpload={uploadKitImage} onClearCustomImages={clearCustomImages} onMarkerScaleChange={setMarkerScale} onKitHueChange={setKitHue} onReset={() => { resetPositionsToSpots(); setStatus('Positions reset to suggested spot locations.'); }} onClear={() => { clearSelection(); setStatus('Board cleared.'); }} onSave={saveBoard} onLoad={loadBoard} onExport={() => exportBoardImage({ boardPlayers, players, clubs, mode, formationName: currentFormationName, markerScale, kitColor, customBoardImageUrl, customKitImageUrl })} />
+    <section className="board-area panel-card"><div className="board-top"><select className="formation-inline" value={formationId} onChange={(event) => changeFormation(event.target.value)} aria-label="Formation">{formations.map((formation) => <option key={formation.id} value={formation.id}>{formation.name}</option>)}</select></div><details className="floating-camera-panel"><summary><span>Camera</span><strong>{cameraLocked ? 'Locked' : `${Math.round(cameraView.tilt)}° · ${Math.round(cameraView.rotation)}°`}</strong><button className={`camera-lock ${cameraLocked ? 'active' : ''}`} onClick={(event) => { event.preventDefault(); setCameraLocked((locked) => !locked); }}>{cameraLocked ? 'Unlock' : 'Lock'}</button></summary><CameraAngleSelector selectedAngle={cameraAngle} cameraView={cameraView} onChange={changeCameraAngle} onViewChange={changeCameraView} onReset={resetCamera} disabled={cameraLocked} /></details><Pitch boardPlayers={boardPlayers} formationCoordinates={formationCoordinates} activeRoleIndex={activeRoleIndex} players={players} clubs={clubs} mode={mode} cameraAngle={cameraAngle} cameraView={cameraView} markerScale={markerScale} kitColor={kitColor} customBoardImageUrl={customBoardImageUrl} customKitImageUrl={customKitImageUrl} showPlayerLabels={showPlayerLabels} pitchLineOpacity={pitchLineOpacity} cameraLocked={cameraLocked} highlightedRoles={highlightedRoles} onCameraViewChange={changeCameraView} onSelectFormationSpot={setActiveRoleIndex} onMoveFormationSpot={moveFormationSpot} onMovePlayer={(playerId, x, y) => setBoardPlayers((current) => current.map((item) => item.playerId === playerId ? { ...item, x, y } : item))} /></section>
+    <BoardToolsPanel markerScale={markerScale} kitHue={kitHue} kitColor={kitColor} showPlayerLabels={showPlayerLabels} pitchLineOpacity={pitchLineOpacity} hasCustomBoard={Boolean(customBoardImageUrl)} hasCustomKit={Boolean(customKitImageUrl)} onBoardImageUpload={uploadBoardImage} onKitImageUpload={uploadKitImage} onClearCustomImages={clearCustomImages} onMarkerScaleChange={setMarkerScale} onKitHueChange={setKitHue} onShowPlayerLabelsChange={setShowPlayerLabels} onPitchLineOpacityChange={setPitchLineOpacity} />
   </main>;
 }

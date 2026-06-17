@@ -16,6 +16,8 @@ export interface SavedBoardState {
   activeRoleIndex?: number | null;
   markerScale?: number;
   kitHue?: number;
+  showPlayerLabels?: boolean;
+  pitchLineOpacity?: number;
   customBoardImageUrl?: string;
   customKitImageUrl?: string;
   selectedIds: string[];
