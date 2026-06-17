@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CSSProperties, PointerEvent } from 'react';
 import type { BoardMode, BoardPlayer, CameraAngle, CameraView, Club, FormationCoordinate, Player } from '../types';
 import { clampCameraView } from '../utils/camera';
@@ -11,9 +11,77 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
   const pitchRef = useRef<HTMLDivElement>(null);
   const cameraDragRef = useRef<{ x: number; y: number; view: CameraView } | null>(null);
   const spotDragRef = useRef<number | null>(null);
+  const playerFrameRef = useRef<number | null>(null);
+  const spotFrameRef = useRef<number | null>(null);
+  const cameraFrameRef = useRef<number | null>(null);
+  const pendingPlayerMoveRef = useRef<{ playerId: string; x: number; y: number } | null>(null);
+  const pendingSpotMoveRef = useRef<{ index: number; x: number; y: number } | null>(null);
+  const pendingCameraViewRef = useRef<CameraView | null>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [draggingSpotIndex, setDraggingSpotIndex] = useState<number | null>(null);
   const [isRotatingCamera, setIsRotatingCamera] = useState(false);
+
+
+  const cancelScheduledUpdates = () => {
+    for (const frameRef of [playerFrameRef, spotFrameRef, cameraFrameRef]) {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    pendingPlayerMoveRef.current = null;
+    pendingSpotMoveRef.current = null;
+    pendingCameraViewRef.current = null;
+  };
+
+  const flushScheduledUpdates = () => {
+    for (const frameRef of [playerFrameRef, spotFrameRef, cameraFrameRef]) {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    const playerMove = pendingPlayerMoveRef.current;
+    const spotMove = pendingSpotMoveRef.current;
+    const cameraViewMove = pendingCameraViewRef.current;
+    pendingPlayerMoveRef.current = null;
+    pendingSpotMoveRef.current = null;
+    pendingCameraViewRef.current = null;
+    if (playerMove) onMovePlayer(playerMove.playerId, playerMove.x, playerMove.y);
+    if (spotMove) onMoveFormationSpot(spotMove.index, spotMove.x, spotMove.y);
+    if (cameraViewMove) onCameraViewChange(cameraViewMove);
+  };
+
+  useEffect(() => cancelScheduledUpdates, []);
+
+  const schedulePlayerMove = (playerId: string, x: number, y: number) => {
+    pendingPlayerMoveRef.current = { playerId, x, y };
+    if (playerFrameRef.current !== null) return;
+    playerFrameRef.current = requestAnimationFrame(() => {
+      playerFrameRef.current = null;
+      const move = pendingPlayerMoveRef.current;
+      pendingPlayerMoveRef.current = null;
+      if (move) onMovePlayer(move.playerId, move.x, move.y);
+    });
+  };
+
+  const scheduleSpotMove = (index: number, x: number, y: number) => {
+    pendingSpotMoveRef.current = { index, x, y };
+    if (spotFrameRef.current !== null) return;
+    spotFrameRef.current = requestAnimationFrame(() => {
+      spotFrameRef.current = null;
+      const move = pendingSpotMoveRef.current;
+      pendingSpotMoveRef.current = null;
+      if (move) onMoveFormationSpot(move.index, move.x, move.y);
+    });
+  };
+
+  const scheduleCameraView = (view: CameraView) => {
+    pendingCameraViewRef.current = view;
+    if (cameraFrameRef.current !== null) return;
+    cameraFrameRef.current = requestAnimationFrame(() => {
+      cameraFrameRef.current = null;
+      const nextView = pendingCameraViewRef.current;
+      pendingCameraViewRef.current = null;
+      if (nextView) onCameraViewChange(nextView);
+    });
+  };
 
   const pointerToPitchPosition = (clientX: number, clientY: number, padding = 4) => {
     const rect = pitchRef.current?.getBoundingClientRect();
@@ -29,7 +97,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     if (!rect) return;
     const markerRadiusPercent = Math.max(3.8, Math.min(6, (34 * markerScale / Math.min(rect.width, rect.height)) * 100));
     const position = pointerToPitchPosition(clientX, clientY, markerRadiusPercent);
-    if (position) onMovePlayer(playerId, position.x, position.y);
+    if (position) schedulePlayerMove(playerId, position.x, position.y);
   }, [markerScale, onMovePlayer]);
 
   const startDrag = (playerId: string, event: PointerEvent<HTMLDivElement>) => {
@@ -48,7 +116,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     setDraggingSpotIndex(index);
     onSelectFormationSpot(index);
     const position = pointerToPitchPosition(event.clientX, event.clientY, 4);
-    if (position) onMoveFormationSpot(index, position.x, position.y);
+    if (position) scheduleSpotMove(index, position.x, position.y);
   };
 
   const startCameraRotate = (event: PointerEvent<HTMLDivElement>) => {
@@ -63,7 +131,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     if (draggingId) movePlayerFromPointer(draggingId, event.clientX, event.clientY);
     if (spotDragRef.current !== null) {
       const position = pointerToPitchPosition(event.clientX, event.clientY, 4);
-      if (position) onMoveFormationSpot(spotDragRef.current, position.x, position.y);
+      if (position) scheduleSpotMove(spotDragRef.current, position.x, position.y);
     }
     const drag = cameraDragRef.current;
     if (!drag) return;
@@ -72,7 +140,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
       rotation: drag.view.rotation + (event.clientX - drag.x) * .35,
       tilt: drag.view.tilt - (event.clientY - drag.y) * .18,
     });
-    onCameraViewChange(nextView);
+    scheduleCameraView(nextView);
   };
 
   const stopPointerAction = () => {
@@ -81,6 +149,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     setDraggingSpotIndex(null);
     cameraDragRef.current = null;
     setIsRotatingCamera(false);
+    flushScheduledUpdates();
   };
 
   const rotationPressure = Math.abs(Math.sin((cameraView.rotation * Math.PI) / 180));
