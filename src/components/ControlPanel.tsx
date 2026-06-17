@@ -2,7 +2,7 @@ import type { BoardMode, Club, League, NationalTeam, Player, PlayerPoolType } fr
 import { PlayerSelector } from './PlayerSelector';
 import { getPoolLabel, getPlayersForPool } from '../utils/playerPools';
 
-interface Props { mode: BoardMode; playerPoolType: PlayerPoolType; selectedPoolId: string; clubs: Club[]; leagues: League[]; nationalTeams: NationalTeam[]; players: Player[]; selectedIds: string[]; onModeChange: (mode: BoardMode) => void; onPoolTypeChange: (type: PlayerPoolType) => void; onPoolChange: (poolId: string) => void; onLoadExampleTeam: () => void; onTogglePlayer: (id: string) => void; }
+interface Props { mode: BoardMode; playerPoolType: PlayerPoolType; selectedPoolId: string; clubs: Club[]; leagues: League[]; nationalTeams: NationalTeam[]; players: Player[]; selectedIds: string[]; preferredRole?: string; onModeChange: (mode: BoardMode) => void; onPoolTypeChange: (type: PlayerPoolType) => void; onPoolChange: (poolId: string) => void; onLoadExampleTeam: () => void; onTogglePlayer: (id: string) => void; }
 
 export function ControlPanel(props: Props) {
   const selectablePlayers = getPlayersForPool(props.playerPoolType, props.selectedPoolId, props.players, props.clubs);
@@ -17,6 +17,6 @@ export function ControlPanel(props: Props) {
     <div className="selection-header"><strong>Players</strong><span>{props.selectedIds.length}/11 selected</span></div>
     <p className="pool-summary">Showing {selectablePlayers.length} players from {poolLabel}.</p>
     <button className="example-button" onClick={props.onLoadExampleTeam}>Load example team</button>
-    <PlayerSelector players={selectablePlayers} clubs={props.clubs} nationalTeams={props.nationalTeams} selectedIds={props.selectedIds} disabled={props.selectedIds.length >= 11} onToggle={props.onTogglePlayer} />
+    <PlayerSelector players={selectablePlayers} clubs={props.clubs} nationalTeams={props.nationalTeams} selectedIds={props.selectedIds} preferredRole={props.preferredRole} disabled={props.selectedIds.length >= 11} onToggle={props.onTogglePlayer} />
   </aside>;
 }

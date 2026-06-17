@@ -188,17 +188,18 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Suggested spots and styling
 
-- Use the **Suggested spots** buttons in the selection panel, or click a ghost spot on the pitch, to choose which formation role the next selected player should fill.
+- Use the **Suggested spots** buttons in the position panel, or click a ghost spot on the pitch, to choose which formation role the next selected player should fill.
 - Drag any suggested spot on the pitch to customize that role's default location; assigned players move with the customized spot, with pointer updates smoothed through animation-frame scheduling.
 - Use **Board tools → Team style** to scale player icons, change the kit accent color, upload a custom board image, and upload a custom player kit image used by every marker and PNG export.
 - **Reset positions** moves selected players back to the current suggested spot locations, including any custom spot edits.
 
 ## Camera controls
 
-- Choose a preset camera: `Top`, `Broadcast`, `Isometric`, or `Sideline`.
-- Use the rotate, tilt, and zoom sliders for precise adjustments.
+- Hover over the floating camera panel inside the field panel to choose `Top`, `Broadcast`, `Isometric`, or `Sideline`.
+- Use the floating rotate, tilt, and zoom sliders for precise adjustments, or lock the camera to prevent accidental camera changes.
 - Click and hold the pitch background, then drag horizontally to rotate and vertically to change tilt.
 - Drag player markers directly to move players; dragging a marker will not rotate the camera.
+- Selecting players highlights matching preferred formation spots, while selecting a position highlights players whose preferred position matches that role.
 
 
 ## Layout
@@ -209,7 +210,7 @@ The desktop UI uses a top headline plus three working panels so the pitch and pl
 2. **Player selection panel** — mode, player-pool type, club/league/national-team selection, example team, and the player list in its own scrollable panel.
 3. **Position selection panel** — formation selection and suggested role spots in a separate panel so player rows stay visible.
 4. **Center field panel** — the responsive pitch stays centered in a capped-width board area so the middle column does not crowd the side panels.
-5. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export, also using the wider desktop column.
+5. **Right tools panel** — marker styling, image uploads, save/load, reset, clear, and image export; camera controls float inside the field panel.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
 
@@ -219,10 +220,10 @@ On medium screens the tools panel moves below the selection panel while the fiel
 - `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, suggested/custom formation spots, marker styling, custom board/kit uploads, draggable board positions, local save/load, camera-angle/view controls, example-team loading, PNG export actions, and the top app headline.
 - `ControlPanel` is the player-selection panel for mode, player-pool tabs, club/league/national-team selector, example-team loading, and player selection.
 - `PositionPanel` is the dedicated position-selection panel for formation choice and suggested spot targeting.
-- `BoardToolsPanel` is the right-side tools panel for camera presets/sliders, marker-size and kit-color sliders, custom board/kit uploads, save/load, PNG export, reset positions, clear board, and status messages.
+- `BoardToolsPanel` is the right-side tools panel for marker-size and kit-color sliders, custom board/kit uploads, save/load, PNG export, reset positions, clear board, and status messages.
 - `FormationSelector` renders formation choices.
 - `PlayerSelector` renders the selectable squad/player pool with club and national-team context.
-- `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, custom spot dragging, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.
+- `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, preferred-position highlights, custom spot dragging, floating camera controls/lock support, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.
 - `PlayerMarker` renders draggable circular player markers with profile images in Club XI mode and club logos in Best XI mode.
 
 Mock leagues, national teams, clubs, players, and formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`; camera presets and clamping live in `src/utils/camera.ts`.

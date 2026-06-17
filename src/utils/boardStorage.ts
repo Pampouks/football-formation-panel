@@ -11,6 +11,7 @@ export interface SavedBoardState {
   formationId: string;
   cameraAngle?: CameraAngle;
   cameraView?: CameraView;
+  cameraLocked?: boolean;
   formationCoordinates?: FormationCoordinate[];
   activeRoleIndex?: number | null;
   markerScale?: number;

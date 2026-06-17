@@ -5,9 +5,9 @@ import { clampCameraView } from '../utils/camera';
 import { clampPitchCoordinate } from '../utils/formation';
 import { PlayerMarker } from './PlayerMarker';
 
-interface Props { boardPlayers: BoardPlayer[]; formationCoordinates: FormationCoordinate[]; activeRoleIndex: number | null; players: Player[]; clubs: Club[]; mode: BoardMode; cameraAngle: CameraAngle; cameraView: CameraView; markerScale: number; kitColor: string; customBoardImageUrl?: string; customKitImageUrl?: string; onCameraViewChange: (view: CameraView) => void; onMovePlayer: (playerId: string, x: number, y: number) => void; onSelectFormationSpot: (index: number) => void; onMoveFormationSpot: (index: number, x: number, y: number) => void; }
+interface Props { boardPlayers: BoardPlayer[]; formationCoordinates: FormationCoordinate[]; activeRoleIndex: number | null; players: Player[]; clubs: Club[]; mode: BoardMode; cameraAngle: CameraAngle; cameraView: CameraView; markerScale: number; kitColor: string; customBoardImageUrl?: string; customKitImageUrl?: string; cameraLocked: boolean; highlightedRoles: Set<string>; onCameraViewChange: (view: CameraView) => void; onMovePlayer: (playerId: string, x: number, y: number) => void; onSelectFormationSpot: (index: number) => void; onMoveFormationSpot: (index: number, x: number, y: number) => void; }
 
-export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, players, clubs, mode, cameraAngle, cameraView, markerScale, kitColor, customBoardImageUrl, customKitImageUrl, onCameraViewChange, onMovePlayer, onSelectFormationSpot, onMoveFormationSpot }: Props) {
+export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, players, clubs, mode, cameraAngle, cameraView, markerScale, kitColor, customBoardImageUrl, customKitImageUrl, cameraLocked, highlightedRoles, onCameraViewChange, onMovePlayer, onSelectFormationSpot, onMoveFormationSpot }: Props) {
   const pitchRef = useRef<HTMLDivElement>(null);
   const cameraDragRef = useRef<{ x: number; y: number; view: CameraView } | null>(null);
   const spotDragRef = useRef<number | null>(null);
@@ -120,7 +120,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
   };
 
   const startCameraRotate = (event: PointerEvent<HTMLDivElement>) => {
-    if ((event.target as HTMLElement).closest('.marker-wrap, .formation-spot')) return;
+    if (cameraLocked || (event.target as HTMLElement).closest('.marker-wrap, .formation-spot')) return;
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     cameraDragRef.current = { x: event.clientX, y: event.clientY, view: cameraView };
@@ -166,7 +166,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     {formationCoordinates.map((coordinate, index) => {
       const assigned = boardPlayers.find((item) => item.role === coordinate.role);
       const player = assigned ? players.find((item) => item.id === assigned.playerId) : undefined;
-      return <button key={`${coordinate.role}-${index}`} className={`formation-spot ${activeRoleIndex === index ? 'active' : ''} ${assigned ? 'filled' : ''} ${draggingSpotIndex === index ? 'dragging' : ''}`} style={{ left: `${coordinate.x}%`, top: `${coordinate.y}%` }} onClick={(event) => { event.stopPropagation(); onSelectFormationSpot(index); }} onPointerDown={(event) => startSpotDrag(index, event)} title="Click to target this role. Drag to customize this spot."><span>{coordinate.role}</span>{player && <small>{player.shirtNumber}</small>}</button>;
+      return <button key={`${coordinate.role}-${index}`} className={`formation-spot ${activeRoleIndex === index ? 'active' : ''} ${assigned ? 'filled' : ''} ${highlightedRoles.has(coordinate.role) ? 'preferred' : ''} ${draggingSpotIndex === index ? 'dragging' : ''}`} style={{ left: `${coordinate.x}%`, top: `${coordinate.y}%` }} onClick={(event) => { event.stopPropagation(); onSelectFormationSpot(index); }} onPointerDown={(event) => startSpotDrag(index, event)} title="Click to target this role. Drag to customize this spot."><span>{coordinate.role}</span>{player && <small>{player.shirtNumber}</small>}</button>;
     })}
     {boardPlayers.map((boardPlayer) => {
       const player = players.find((item) => item.id === boardPlayer.playerId);
