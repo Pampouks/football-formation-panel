@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CSSProperties, PointerEvent } from 'react';
-import type { BoardMode, BoardPlayer, CameraAngle, CameraView, Club, FormationCoordinate, Player } from '../types';
+import type { BoardMode, BoardPlayer, CameraAngle, CameraView, Club, FormationCoordinate, KitPattern, Player } from '../types';
 import { clampCameraView } from '../utils/camera';
 import { clampPitchCoordinate } from '../utils/formation';
 import { PlayerMarker } from './PlayerMarker';
 
-interface Props { boardPlayers: BoardPlayer[]; formationCoordinates: FormationCoordinate[]; activeRoleIndex: number | null; players: Player[]; clubs: Club[]; mode: BoardMode; cameraAngle: CameraAngle; cameraView: CameraView; markerScale: number; kitColor: string; customBoardImageUrl?: string; customKitImageUrl?: string; showPlayerLabels: boolean; pitchLineOpacity: number; cameraLocked: boolean; highlightedRoles: Set<string>; onCameraViewChange: (view: CameraView) => void; onMovePlayer: (playerId: string, x: number, y: number) => void; onSelectFormationSpot: (index: number) => void; onMoveFormationSpot: (index: number, x: number, y: number) => void; }
+interface Props { boardPlayers: BoardPlayer[]; formationCoordinates: FormationCoordinate[]; activeRoleIndex: number | null; players: Player[]; clubs: Club[]; mode: BoardMode; cameraAngle: CameraAngle; cameraView: CameraView; markerScale: number; kitColor: string; customBoardImageUrl?: string; customKitImageUrl?: string; showPlayerLabels: boolean; kitPattern: KitPattern; kitSecondaryColor: string; pitchLineOpacity: number; cameraLocked: boolean; highlightedRoles: Set<string>; onCameraViewChange: (view: CameraView) => void; onMovePlayer: (playerId: string, x: number, y: number) => void; onSelectFormationSpot: (index: number) => void; onMoveFormationSpot: (index: number, x: number, y: number) => void; }
 
-export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, players, clubs, mode, cameraAngle, cameraView, markerScale, kitColor, customBoardImageUrl, customKitImageUrl, showPlayerLabels, pitchLineOpacity, cameraLocked, highlightedRoles, onCameraViewChange, onMovePlayer, onSelectFormationSpot, onMoveFormationSpot }: Props) {
+export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, players, clubs, mode, cameraAngle, cameraView, markerScale, kitColor, customBoardImageUrl, customKitImageUrl, showPlayerLabels, kitPattern, kitSecondaryColor, pitchLineOpacity, cameraLocked, highlightedRoles, onCameraViewChange, onMovePlayer, onSelectFormationSpot, onMoveFormationSpot }: Props) {
   const pitchRef = useRef<HTMLDivElement>(null);
   const cameraDragRef = useRef<{ x: number; y: number; view: CameraView } | null>(null);
   const spotDragRef = useRef<number | null>(null);
@@ -157,6 +157,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
   const pitchStyle = {
     '--camera-transform': `rotateX(${cameraView.tilt}deg) rotateZ(${cameraView.rotation}deg) scale(${cameraView.zoom * cameraFit})`,
     '--kit-color': kitColor,
+    '--kit-secondary-color': kitSecondaryColor,
     '--board-image': customBoardImageUrl ? `url(${customBoardImageUrl})` : undefined,
     '--line-opacity': pitchLineOpacity,
   } as CSSProperties;
@@ -172,7 +173,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
     {boardPlayers.map((boardPlayer) => {
       const player = players.find((item) => item.id === boardPlayer.playerId);
       if (!player) return null;
-      return <PlayerMarker key={boardPlayer.playerId} player={player} club={clubs.find((club) => club.id === player.clubId)} mode={mode} x={boardPlayer.x} y={boardPlayer.y} role={boardPlayer.role} isDragging={draggingId === boardPlayer.playerId} markerScale={markerScale} kitColor={kitColor} kitImageUrl={customKitImageUrl} showLabel={showPlayerLabels} onPointerDown={startDrag} />;
+      return <PlayerMarker key={boardPlayer.playerId} player={player} club={clubs.find((club) => club.id === player.clubId)} mode={mode} x={boardPlayer.x} y={boardPlayer.y} role={boardPlayer.role} isDragging={draggingId === boardPlayer.playerId} markerScale={markerScale} kitColor={kitColor} kitImageUrl={customKitImageUrl} showLabel={showPlayerLabels} kitPattern={kitPattern} kitSecondaryColor={kitSecondaryColor} onPointerDown={startDrag} />;
     })}
   </div></div>;
 }

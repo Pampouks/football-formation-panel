@@ -1,6 +1,8 @@
 export type BoardMode = 'club' | 'best';
 export type PlayerPoolType = 'club' | 'league' | 'nationalTeam';
 export type CameraAngle = 'top' | 'broadcast' | 'isometric' | 'sideline';
+export type KitMode = 'home' | 'away' | 'custom';
+export type KitPattern = 'solid' | 'striped';
 
 export interface CameraView {
   tilt: number;
