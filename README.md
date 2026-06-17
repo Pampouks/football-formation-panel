@@ -195,18 +195,19 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Layout
 
-The desktop UI is split into three panels so the pitch no longer competes with one long scrolling control column:
+The desktop UI uses a top headline plus three working panels so the pitch and player list no longer compete with one long scrolling control column:
 
-1. **Left selection panel** — mode, player-pool type, club/league/national-team selection, formation, example team, and the player list.
-2. **Center field panel** — the responsive pitch stays centered and constrained within its board area.
-3. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export.
+1. **Top headline** — app title, attribution, and the short product description.
+2. **Left selection panel** — mode, player-pool type, club/league/national-team selection, formation, example team, and the player list.
+3. **Center field panel** — the responsive pitch stays centered and constrained within its board area.
+4. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
 
 ## Component structure
 
 - `App` loads the tactics board shell.
-- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, formation, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
+- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, formation, draggable board positions, local save/load, camera-angle/view controls, example-team loading, PNG export actions, and the top app headline.
 - `ControlPanel` is the left selection panel for mode, player-pool tabs, club/league/national-team selector, formation, example-team loading, and player selection.
 - `BoardToolsPanel` is the right-side tools panel for camera presets/sliders, save/load, PNG export, reset positions, clear board, and status messages.
 - `FormationSelector` renders formation choices.
