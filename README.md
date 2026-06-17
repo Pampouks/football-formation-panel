@@ -195,8 +195,8 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Camera controls
 
-- Hover over the floating camera panel inside the field panel to choose `Top`, `Broadcast`, `Isometric`, or `Sideline`.
-- Use the floating rotate, tilt, and zoom sliders for precise adjustments, or lock the camera to prevent accidental camera changes.
+- Use the compact **Camera** pill inside the field panel for the current lock/status summary, then click it to expand the full camera controls.
+- In the expanded camera panel, choose `Top`, `Broadcast`, `Isometric`, or `Sideline`, adjust rotate/tilt/zoom sliders, or lock the camera to prevent accidental camera changes.
 - Click and hold the pitch background, then drag horizontally to rotate and vertically to change tilt.
 - Drag player markers directly to move players; dragging a marker will not rotate the camera.
 - Selecting players highlights matching preferred formation spots, while selecting a position highlights players whose preferred position matches that role.
@@ -204,13 +204,13 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Layout
 
-The desktop UI uses a top headline plus three working panels so the pitch and player list no longer compete with one long scrolling control column:
+The desktop UI uses a compact top headline plus working panels with reduced spacing so the pitch, selectors, tools, and player list can fit in one screen area more comfortably:
 
 1. **Top headline** — app title, attribution, and the short product description.
 2. **Player selection panel** — mode, player-pool type, club/league/national-team selection, example team, and the player list in its own scrollable panel.
 3. **Position selection panel** — formation selection and suggested role spots in a separate panel so player rows stay visible.
 4. **Center field panel** — the responsive pitch stays centered in a capped-width board area so the middle column does not crowd the side panels.
-5. **Right tools panel** — marker styling, image uploads, save/load, reset, clear, and image export; camera controls float inside the field panel.
+5. **Right tools panel** — compact marker styling, image uploads, save/load, reset, clear, and image export; the camera starts as a small expandable field-panel control.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
 
@@ -223,7 +223,7 @@ On medium screens the tools panel moves below the selection panel while the fiel
 - `BoardToolsPanel` is the right-side tools panel for marker-size and kit-color sliders, custom board/kit uploads, save/load, PNG export, reset positions, clear board, and status messages.
 - `FormationSelector` renders formation choices.
 - `PlayerSelector` renders the selectable squad/player pool with club and national-team context.
-- `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, preferred-position highlights, custom spot dragging, floating camera controls/lock support, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.
+- `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, preferred-position highlights, custom spot dragging, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.
 - `PlayerMarker` renders draggable circular player markers with profile images in Club XI mode and club logos in Best XI mode.
 
 Mock leagues, national teams, clubs, players, and formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`; camera presets and clamping live in `src/utils/camera.ts`.
