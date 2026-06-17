@@ -204,21 +204,20 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 
 ## Layout
 
-The desktop UI uses a compact top headline plus working panels with reduced spacing so the pitch, selectors, tools, and player list can fit in one screen area more comfortably:
+The desktop UI removes the oversized headline and uses compact working panels with reduced spacing so the pitch, selectors, tools, and player list can fit in one screen area more comfortably:
 
-1. **Top headline** — app title, attribution, and the short product description.
-2. **Player selection panel** — mode, player-pool type, club/league/national-team selection, example team, and the player list in its own scrollable panel.
-3. **Position selection panel** — formation selection and suggested role spots in a separate panel so player rows stay visible.
-4. **Center field panel** — the responsive pitch stays centered in a capped-width board area so the middle column does not crowd the side panels.
-5. **Right tools panel** — compact marker styling, image uploads, save/load, reset, clear, and image export; the camera starts as a small expandable field-panel control.
+1. **Player selection panel** — Club XI / Best XI tabs, a compact club/league/nations source switcher, the active source selector, example-team loading, and the player list in its own scrollable panel.
+2. **Position selection panel** — formation selection and suggested role spots in a separate panel so player rows stay visible.
+3. **Center field panel** — the responsive pitch stays centered in a capped-width board area with only a small formation badge and expandable camera control.
+4. **Right tools panel** — compact marker styling, image uploads, save/load, reset, clear, and image export; the camera starts as a small expandable field-panel control.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
 
 ## Component structure
 
 - `App` loads the tactics board shell.
-- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, suggested/custom formation spots, marker styling, custom board/kit uploads, draggable board positions, local save/load, camera-angle/view controls, example-team loading, PNG export actions, and the top app headline.
-- `ControlPanel` is the player-selection panel for mode, player-pool tabs, club/league/national-team selector, example-team loading, and player selection.
+- `TacticsBoard` owns mode, player-pool type, selected club/league/national team, selected players, suggested/custom formation spots, marker styling, custom board/kit uploads, draggable board positions, local save/load, camera-angle/view controls, example-team loading, and PNG export actions.
+- `ControlPanel` is the compact player-selection panel for Club XI / Best XI mode, the collapsed club/league/nations source switcher, active source selector, example-team loading, and player selection.
 - `PositionPanel` is the dedicated position-selection panel for formation choice and suggested spot targeting.
 - `BoardToolsPanel` is the right-side tools panel for marker-size and kit-color sliders, custom board/kit uploads, save/load, PNG export, reset positions, clear board, and status messages.
 - `FormationSelector` renders formation choices.

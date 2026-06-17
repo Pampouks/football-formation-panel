@@ -4,7 +4,7 @@ import { positionMatchesRole } from '../utils/positionMatching';
 interface Props { players: Player[]; clubs: Club[]; nationalTeams: NationalTeam[]; selectedIds: string[]; preferredRole?: string; disabled?: boolean; onToggle: (playerId: string) => void; }
 
 export function PlayerSelector({ players, clubs, nationalTeams, selectedIds, preferredRole, disabled, onToggle }: Props) {
-  if (!players.length) return <p className="empty">Choose a club, league, or national team to show available players.</p>;
+  if (!players.length) return <p className="empty">Select a source.</p>;
   const clubName = (id: string) => clubs.find((club) => club.id === id)?.name ?? 'Unknown club';
   const nationalTeamName = (id: string) => nationalTeams.find((team) => team.id === id)?.name ?? 'Unknown nation';
   return <div className="player-list">{players.map((player) => {

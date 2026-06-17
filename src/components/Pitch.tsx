@@ -162,7 +162,7 @@ export function Pitch({ boardPlayers, formationCoordinates, activeRoleIndex, pla
 
   return <div className={`pitch-stage camera-${cameraAngle} ${isRotatingCamera ? 'rotating-camera' : ''}`}><div ref={pitchRef} className={`pitch ${customBoardImageUrl ? 'custom-board' : ''}`} style={pitchStyle} onPointerDown={startCameraRotate} onPointerMove={updateCameraRotate} onPointerUp={stopPointerAction} onPointerCancel={stopPointerAction}>
     <div className="halfway" /><div className="center-circle" /><div className="box box-top" /><div className="box box-bottom" /><div className="six six-top" /><div className="six six-bottom" />
-    {!boardPlayers.length && <div className="pitch-empty"><h2>Your tactics board is empty</h2><p>Select a suggested spot, then pick a player to fill it.</p></div>}
+    {!boardPlayers.length && <div className="pitch-empty"><h2>Empty board</h2></div>}
     {formationCoordinates.map((coordinate, index) => {
       const assigned = boardPlayers.find((item) => item.role === coordinate.role);
       const player = assigned ? players.find((item) => item.id === assigned.playerId) : undefined;
