@@ -1,4 +1,4 @@
-import type { BoardMode, BoardPlayer, CameraAngle, CameraView, PlayerPoolType } from '../types';
+import type { BoardMode, BoardPlayer, CameraAngle, CameraView, FormationCoordinate, PlayerPoolType } from '../types';
 
 const STORAGE_KEY = 'pampouks-football-tactics-board';
 
@@ -11,6 +11,12 @@ export interface SavedBoardState {
   formationId: string;
   cameraAngle?: CameraAngle;
   cameraView?: CameraView;
+  formationCoordinates?: FormationCoordinate[];
+  activeRoleIndex?: number | null;
+  markerScale?: number;
+  kitHue?: number;
+  customBoardImageUrl?: string;
+  customKitImageUrl?: string;
   selectedIds: string[];
   boardPlayers: BoardPlayer[];
   savedAt: string;

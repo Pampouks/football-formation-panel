@@ -10,9 +10,9 @@ const loadImage = (src: string) => new Promise<HTMLImageElement>((resolve, rejec
 
 const initials = (name: string) => name.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
-interface ExportArgs { boardPlayers: BoardPlayer[]; players: Player[]; clubs: Club[]; mode: BoardMode; formationName: string; }
+interface ExportArgs { boardPlayers: BoardPlayer[]; players: Player[]; clubs: Club[]; mode: BoardMode; formationName: string; markerScale?: number; kitColor?: string; customBoardImageUrl?: string; customKitImageUrl?: string; }
 
-export async function exportBoardImage({ boardPlayers, players, clubs, mode, formationName }: ExportArgs) {
+export async function exportBoardImage({ boardPlayers, players, clubs, mode, formationName, markerScale = 1, kitColor = '#ffffff', customBoardImageUrl, customKitImageUrl }: ExportArgs) {
   const canvas = document.createElement('canvas');
   const width = 1200;
   const height = 1700;
@@ -21,11 +21,26 @@ export async function exportBoardImage({ boardPlayers, players, clubs, mode, for
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  ctx.fillStyle = '#0b5f39';
-  ctx.fillRect(0, 0, width, height);
-  for (let i = 0; i < 8; i += 1) {
-    ctx.fillStyle = i % 2 ? '#0f7044' : '#0c653d';
-    ctx.fillRect((width / 8) * i, 0, width / 8, height);
+  if (customBoardImageUrl) {
+    try {
+      const boardImage = await loadImage(customBoardImageUrl);
+      const scale = Math.max(width / boardImage.width, height / boardImage.height);
+      const drawWidth = boardImage.width * scale;
+      const drawHeight = boardImage.height * scale;
+      ctx.drawImage(boardImage, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
+      ctx.fillStyle = 'rgba(6, 38, 24, .28)';
+      ctx.fillRect(0, 0, width, height);
+    } catch {
+      ctx.fillStyle = '#0b5f39';
+      ctx.fillRect(0, 0, width, height);
+    }
+  } else {
+    ctx.fillStyle = '#0b5f39';
+    ctx.fillRect(0, 0, width, height);
+    for (let i = 0; i < 8; i += 1) {
+      ctx.fillStyle = i % 2 ? '#0f7044' : '#0c653d';
+      ctx.fillRect((width / 8) * i, 0, width / 8, height);
+    }
   }
 
   ctx.strokeStyle = 'rgba(255,255,255,.86)';
@@ -51,10 +66,10 @@ export async function exportBoardImage({ boardPlayers, players, clubs, mode, for
     const player = players.find((item) => item.id === boardPlayer.playerId);
     if (!player) continue;
     const club = clubs.find((item) => item.id === player.clubId);
-    const imageUrl = mode === 'best' ? club?.logoUrl : player.profileImageUrl;
+    const imageUrl = customKitImageUrl ?? (mode === 'best' ? club?.logoUrl : player.profileImageUrl);
     const x = (boardPlayer.x / 100) * width;
     const y = (boardPlayer.y / 100) * height;
-    const radius = 48;
+    const radius = 48 * markerScale;
 
     ctx.save();
     ctx.beginPath();
@@ -73,6 +88,16 @@ export async function exportBoardImage({ boardPlayers, players, clubs, mode, for
         ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
       }
     }
+    if (customKitImageUrl && drewImage) {
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 34px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(0,0,0,.75)';
+      ctx.shadowBlur = 8;
+      ctx.fillText(String(player.shirtNumber), x, y);
+      ctx.shadowBlur = 0;
+    }
     if (!drewImage) {
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 30px system-ui, sans-serif';
@@ -81,20 +106,20 @@ export async function exportBoardImage({ boardPlayers, players, clubs, mode, for
       ctx.fillText(initials(player.name), x, y);
     }
     ctx.restore();
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 6;
+    ctx.strokeStyle = kitColor;
+    ctx.lineWidth = 7;
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    ctx.fillStyle = kitColor;
     ctx.beginPath();
-    ctx.roundRect(x - 70, y + 58, 140, 44, 12);
+    ctx.roundRect(x - 70, y + radius + 10, 140, 44, 12);
     ctx.fill();
     ctx.fillStyle = '#07111f';
     ctx.font = 'bold 18px system-ui, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(`${player.shirtNumber} ${player.name.split(' ').slice(-1)[0]}`, x, y + 86);
+    ctx.fillText(`${player.shirtNumber} ${player.name.split(' ').slice(-1)[0]}`, x, y + radius + 38);
   }
 
   const link = document.createElement('a');
