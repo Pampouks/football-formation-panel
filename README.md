@@ -198,9 +198,9 @@ So if you want a player to appear in a club roster, set their `clubId` to that c
 The desktop UI uses a top headline plus three working panels so the pitch and player list no longer compete with one long scrolling control column:
 
 1. **Top headline** — app title, attribution, and the short product description.
-2. **Left selection panel** — mode, player-pool type, club/league/national-team selection, formation, example team, and the player list.
-3. **Center field panel** — the responsive pitch stays centered and constrained within its board area.
-4. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export.
+2. **Left selection panel** — mode, player-pool type, club/league/national-team selection, formation, example team, and the player list, with a wider desktop column for breathing room.
+3. **Center field panel** — the responsive pitch stays centered in a capped-width board area so the middle column does not crowd the side panels.
+4. **Right tools panel** — camera sliders, camera presets, save/load, reset, clear, and image export, also using the wider desktop column.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the field appears first, followed by selection and tools panels.
 
