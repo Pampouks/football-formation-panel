@@ -186,6 +186,18 @@ Preset camera values live in `src/utils/camera.ts`. User-adjusted camera values 
 So if you want a player to appear in a club roster, set their `clubId` to that club's `id`. If you want a player to appear in a national-team roster, set their `nationalTeamId` to that national team's `id`.
 
 
+## Local data folders
+
+The app now loads mock football data from dedicated folders instead of embedding remote placeholder links in the TypeScript source:
+
+- `src/data/leagues/leagues.json` — league ids, names, countries, and local league logo paths.
+- `src/data/clubs/clubs.json` — club ids, names, league ids, and local club logo paths.
+- `src/data/nations/nations.json` — national-team ids, names, and local flag paths.
+- `src/data/players/players.json` — player ids, names, shirt numbers, preferred positions, club/nation ids, and local profile image paths.
+- `public/assets/leagues`, `public/assets/clubs`, `public/assets/nations`, and `public/assets/players` — local SVG assets referenced by those JSON files.
+
+To update rosters or images, edit the JSON entry in the relevant `src/data/*` folder and place the matching image file under `public/assets/*`. Keep ids stable because player, club, nation, and league relationships are linked by id.
+
 ## Suggested spots and styling
 
 - Use the ghost spots directly on the pitch to choose which formation role the next selected player should fill.
@@ -224,4 +236,4 @@ On medium screens the tools panel moves below the selection panel while the fiel
 - `Pitch` renders the responsive pitch or uploaded board image, suggested formation spots, preferred-position highlights, custom spot dragging, selectable camera transforms, click-and-hold camera rotation, and animation-frame-smoothed pointer dragging while keeping markers inside bounds.
 - `PlayerMarker` renders draggable circular player markers with profile images in Club XI mode and club logos in Best XI mode.
 
-Mock leagues, national teams, clubs, players, and formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`; camera presets and clamping live in `src/utils/camera.ts`; JSON export lives in `src/utils/exportBoardJson.ts`.
+Mock leagues, national teams, clubs, and players live in dedicated JSON folders under `src/data/*`; local images live under `public/assets/*`; formations live in `src/data/mockData.ts`; shared TypeScript interfaces live in `src/types/index.ts`; formation placement helpers live in `src/utils/formation.ts`; camera presets and clamping live in `src/utils/camera.ts`; JSON export lives in `src/utils/exportBoardJson.ts`.

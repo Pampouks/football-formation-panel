@@ -1,0 +1,26 @@
+[
+  {
+    "id": "arsenal",
+    "name": "North London Reds",
+    "leagueId": "premier",
+    "logoUrl": "/assets/clubs/arsenal.svg"
+  },
+  {
+    "id": "barcelona",
+    "name": "Catalan Blaugrana",
+    "leagueId": "laliga",
+    "logoUrl": "/assets/clubs/barcelona.svg"
+  },
+  {
+    "id": "milan",
+    "name": "Milano Rossoneri",
+    "leagueId": "seriea",
+    "logoUrl": "/assets/clubs/milan.svg"
+  },
+  {
+    "id": "pampouks-xi",
+    "name": "Pampouks Example XI",
+    "leagueId": "sandbox",
+    "logoUrl": "/assets/clubs/pampouks-xi.svg"
+  }
+]
