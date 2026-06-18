@@ -11,6 +11,7 @@ interface ExportBoardJsonArgs {
   cameraAngle: CameraAngle;
   cameraView: CameraView;
   cameraLocked: boolean;
+  playerPositionsLocked: boolean;
   markerScale: number;
   kitHue: number;
   kitMode: KitMode;
@@ -81,6 +82,9 @@ export function exportBoardJson(args: ExportBoardJsonArgs) {
         angle: args.cameraAngle,
         view: args.cameraView,
         locked: args.cameraLocked,
+      },
+      locks: {
+        playerPositions: args.playerPositionsLocked,
       },
       style: {
         markerScale: args.markerScale,

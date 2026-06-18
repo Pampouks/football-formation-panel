@@ -12,6 +12,7 @@ export interface SavedBoardState {
   cameraAngle?: CameraAngle;
   cameraView?: CameraView;
   cameraLocked?: boolean;
+  playerPositionsLocked?: boolean;
   formationCoordinates?: FormationCoordinate[];
   activeRoleIndex?: number | null;
   markerScale?: number;

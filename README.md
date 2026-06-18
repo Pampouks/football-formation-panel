@@ -200,7 +200,7 @@ To update rosters or images, edit the JSON entry in the relevant `src/data/*` fo
 
 ## Suggested spots and styling
 
-- Use the ghost spots directly on the pitch to choose which formation role the next selected player should fill.
+- Use the ghost spots directly on the pitch to choose which formation role the next selected player should fill; use the field-panel position lock to prevent accidental marker or spot dragging.
 - Drag any suggested spot on the pitch to customize that role's default location; assigned players move with the customized spot, with pointer updates smoothed through animation-frame scheduling.
 - Use **Board tools → Team kit** to switch between Home, Away, and Custom kits, scale player icons, change base kit color, toggle marker labels, and create/save a normal or striped custom kit with primary and secondary colors. Use **Board settings** for custom board/kit image uploads and pitch line opacity.
 - Use the pinned top bar to save, load, export PNG, export a full JSON lineup file, reset positions, or clear the board from one slim action area.
@@ -220,7 +220,7 @@ The desktop UI removes the oversized headline and uses compact working panels wi
 
 1. **Pinned top action bar** — save, load, export PNG, export JSON lineup, reset positions, clear board, and status in one slim row.
 2. **Player selection panel** — Club XI / Best XI tabs, a compact club/league/nations source switcher, the active source selector, example-team loading, and the player list in its own scrollable panel.
-3. **Center field panel** — the responsive pitch stays centered in a capped-width board area, with formation selection moved into the formation dropdown at the top of the field and suggested spots shown directly on the pitch.
+3. **Center field panel** — the responsive pitch stays centered in a capped-width board area, with formation selection on the left side of the field header, a player-position lock beside it, and suggested spots shown directly on the pitch.
 4. **Right tools panel** — team kit and board settings for Home/Away/Custom kit mode, normal or striped custom kit colors, marker size, marker labels, pitch line opacity, custom board upload, and image kit upload; the camera starts as a small expandable field-panel control.
 
 On medium screens the tools panel moves below the selection panel while the field stays beside them. On small/mobile screens the action bar stays first, followed by the field, selection, and tools panels.
