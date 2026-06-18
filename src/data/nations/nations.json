@@ -1,0 +1,77 @@
+[
+  {
+    "id": "england",
+    "name": "England",
+    "flagUrl": "/assets/nations/england.svg"
+  },
+  {
+    "id": "spain",
+    "name": "Spain",
+    "flagUrl": "/assets/nations/spain.svg"
+  },
+  {
+    "id": "brazil",
+    "name": "Brazil",
+    "flagUrl": "/assets/nations/brazil.svg"
+  },
+  {
+    "id": "france",
+    "name": "France",
+    "flagUrl": "/assets/nations/france.svg"
+  },
+  {
+    "id": "italy",
+    "name": "Italy",
+    "flagUrl": "/assets/nations/italy.svg"
+  },
+  {
+    "id": "germany",
+    "name": "Germany",
+    "flagUrl": "/assets/nations/germany.svg"
+  },
+  {
+    "id": "netherlands",
+    "name": "Netherlands",
+    "flagUrl": "/assets/nations/netherlands.svg"
+  },
+  {
+    "id": "norway",
+    "name": "Norway",
+    "flagUrl": "/assets/nations/norway.svg"
+  },
+  {
+    "id": "poland",
+    "name": "Poland",
+    "flagUrl": "/assets/nations/poland.svg"
+  },
+  {
+    "id": "usa",
+    "name": "United States",
+    "flagUrl": "/assets/nations/usa.svg"
+  },
+  {
+    "id": "portugal",
+    "name": "Portugal",
+    "flagUrl": "/assets/nations/portugal.svg"
+  },
+  {
+    "id": "ukraine",
+    "name": "Ukraine",
+    "flagUrl": "/assets/nations/ukraine.svg"
+  },
+  {
+    "id": "uruguay",
+    "name": "Uruguay",
+    "flagUrl": "/assets/nations/uruguay.svg"
+  },
+  {
+    "id": "algeria",
+    "name": "Algeria",
+    "flagUrl": "/assets/nations/algeria.svg"
+  },
+  {
+    "id": "testland",
+    "name": "Testland",
+    "flagUrl": "/assets/nations/testland.svg"
+  }
+]

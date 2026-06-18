@@ -1,0 +1,26 @@
+[
+  {
+    "id": "premier",
+    "name": "Premier League",
+    "country": "England",
+    "logoUrl": "/assets/leagues/premier.svg"
+  },
+  {
+    "id": "laliga",
+    "name": "La Liga",
+    "country": "Spain",
+    "logoUrl": "/assets/leagues/laliga.svg"
+  },
+  {
+    "id": "seriea",
+    "name": "Serie A",
+    "country": "Italy",
+    "logoUrl": "/assets/leagues/seriea.svg"
+  },
+  {
+    "id": "sandbox",
+    "name": "Sandbox Test League",
+    "country": "Demo",
+    "logoUrl": "/assets/leagues/sandbox.svg"
+  }
+]

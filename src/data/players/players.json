@@ -1,0 +1,398 @@
+[
+  {
+    "id": "x1",
+    "name": "Theo Keeper",
+    "position": "GK",
+    "shirtNumber": 1,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x1.svg"
+  },
+  {
+    "id": "x2",
+    "name": "Rico Rightback",
+    "position": "RB",
+    "shirtNumber": 2,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x2.svg"
+  },
+  {
+    "id": "x3",
+    "name": "Cato Centerback",
+    "position": "CB",
+    "shirtNumber": 4,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x3.svg"
+  },
+  {
+    "id": "x4",
+    "name": "Bruno Blocker",
+    "position": "CB",
+    "shirtNumber": 5,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x4.svg"
+  },
+  {
+    "id": "x5",
+    "name": "Luca Leftback",
+    "position": "LB",
+    "shirtNumber": 3,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x5.svg"
+  },
+  {
+    "id": "x6",
+    "name": "Milo Anchor",
+    "position": "DM",
+    "shirtNumber": 6,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x6.svg"
+  },
+  {
+    "id": "x7",
+    "name": "Nico Tempo",
+    "position": "CM",
+    "shirtNumber": 8,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x7.svg"
+  },
+  {
+    "id": "x8",
+    "name": "Omar Creator",
+    "position": "AM",
+    "shirtNumber": 10,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x8.svg"
+  },
+  {
+    "id": "x9",
+    "name": "Pablo Winger",
+    "position": "RW",
+    "shirtNumber": 7,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x9.svg"
+  },
+  {
+    "id": "x10",
+    "name": "Quinn Striker",
+    "position": "ST",
+    "shirtNumber": 9,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x10.svg"
+  },
+  {
+    "id": "x11",
+    "name": "Sami Winger",
+    "position": "LW",
+    "shirtNumber": 11,
+    "clubId": "pampouks-xi",
+    "nationalTeamId": "testland",
+    "profileImageUrl": "/assets/players/x11.svg"
+  },
+  {
+    "id": "a1",
+    "name": "Aaron Ramsdale",
+    "position": "GK",
+    "shirtNumber": 1,
+    "clubId": "arsenal",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/a1.svg"
+  },
+  {
+    "id": "a2",
+    "name": "Ben White",
+    "position": "RB",
+    "shirtNumber": 4,
+    "clubId": "arsenal",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/a2.svg"
+  },
+  {
+    "id": "a3",
+    "name": "William Saliba",
+    "position": "CB",
+    "shirtNumber": 2,
+    "clubId": "arsenal",
+    "nationalTeamId": "france",
+    "profileImageUrl": "/assets/players/a3.svg"
+  },
+  {
+    "id": "a4",
+    "name": "Gabriel Magalhaes",
+    "position": "CB",
+    "shirtNumber": 6,
+    "clubId": "arsenal",
+    "nationalTeamId": "brazil",
+    "profileImageUrl": "/assets/players/a4.svg"
+  },
+  {
+    "id": "a5",
+    "name": "Oleksandr Zinchenko",
+    "position": "LB",
+    "shirtNumber": 35,
+    "clubId": "arsenal",
+    "nationalTeamId": "ukraine",
+    "profileImageUrl": "/assets/players/a5.svg"
+  },
+  {
+    "id": "a6",
+    "name": "Declan Rice",
+    "position": "DM",
+    "shirtNumber": 41,
+    "clubId": "arsenal",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/a6.svg"
+  },
+  {
+    "id": "a7",
+    "name": "Martin Odegaard",
+    "position": "AM",
+    "shirtNumber": 8,
+    "clubId": "arsenal",
+    "nationalTeamId": "norway",
+    "profileImageUrl": "/assets/players/a7.svg"
+  },
+  {
+    "id": "a8",
+    "name": "Bukayo Saka",
+    "position": "RW",
+    "shirtNumber": 7,
+    "clubId": "arsenal",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/a8.svg"
+  },
+  {
+    "id": "a9",
+    "name": "Gabriel Jesus",
+    "position": "ST",
+    "shirtNumber": 9,
+    "clubId": "arsenal",
+    "nationalTeamId": "brazil",
+    "profileImageUrl": "/assets/players/a9.svg"
+  },
+  {
+    "id": "a10",
+    "name": "Gabriel Martinelli",
+    "position": "LW",
+    "shirtNumber": 11,
+    "clubId": "arsenal",
+    "nationalTeamId": "brazil",
+    "profileImageUrl": "/assets/players/a10.svg"
+  },
+  {
+    "id": "a11",
+    "name": "Kai Havertz",
+    "position": "CM",
+    "shirtNumber": 29,
+    "clubId": "arsenal",
+    "nationalTeamId": "germany",
+    "profileImageUrl": "/assets/players/a11.svg"
+  },
+  {
+    "id": "b1",
+    "name": "Marc-Andre ter Stegen",
+    "position": "GK",
+    "shirtNumber": 1,
+    "clubId": "barcelona",
+    "nationalTeamId": "germany",
+    "profileImageUrl": "/assets/players/b1.svg"
+  },
+  {
+    "id": "b2",
+    "name": "Jules Kounde",
+    "position": "RB",
+    "shirtNumber": 23,
+    "clubId": "barcelona",
+    "nationalTeamId": "france",
+    "profileImageUrl": "/assets/players/b2.svg"
+  },
+  {
+    "id": "b3",
+    "name": "Ronald Araujo",
+    "position": "CB",
+    "shirtNumber": 4,
+    "clubId": "barcelona",
+    "nationalTeamId": "uruguay",
+    "profileImageUrl": "/assets/players/b3.svg"
+  },
+  {
+    "id": "b4",
+    "name": "Pau Cubarsi",
+    "position": "CB",
+    "shirtNumber": 33,
+    "clubId": "barcelona",
+    "nationalTeamId": "spain",
+    "profileImageUrl": "/assets/players/b4.svg"
+  },
+  {
+    "id": "b5",
+    "name": "Alejandro Balde",
+    "position": "LB",
+    "shirtNumber": 3,
+    "clubId": "barcelona",
+    "nationalTeamId": "spain",
+    "profileImageUrl": "/assets/players/b5.svg"
+  },
+  {
+    "id": "b6",
+    "name": "Frenkie de Jong",
+    "position": "CM",
+    "shirtNumber": 21,
+    "clubId": "barcelona",
+    "nationalTeamId": "netherlands",
+    "profileImageUrl": "/assets/players/b6.svg"
+  },
+  {
+    "id": "b7",
+    "name": "Pedri",
+    "position": "CM",
+    "shirtNumber": 8,
+    "clubId": "barcelona",
+    "nationalTeamId": "spain",
+    "profileImageUrl": "/assets/players/b7.svg"
+  },
+  {
+    "id": "b8",
+    "name": "Gavi",
+    "position": "CM",
+    "shirtNumber": 6,
+    "clubId": "barcelona",
+    "nationalTeamId": "spain",
+    "profileImageUrl": "/assets/players/b8.svg"
+  },
+  {
+    "id": "b9",
+    "name": "Lamine Yamal",
+    "position": "RW",
+    "shirtNumber": 19,
+    "clubId": "barcelona",
+    "nationalTeamId": "spain",
+    "profileImageUrl": "/assets/players/b9.svg"
+  },
+  {
+    "id": "b10",
+    "name": "Robert Lewandowski",
+    "position": "ST",
+    "shirtNumber": 9,
+    "clubId": "barcelona",
+    "nationalTeamId": "poland",
+    "profileImageUrl": "/assets/players/b10.svg"
+  },
+  {
+    "id": "b11",
+    "name": "Raphinha",
+    "position": "LW",
+    "shirtNumber": 11,
+    "clubId": "barcelona",
+    "nationalTeamId": "brazil",
+    "profileImageUrl": "/assets/players/b11.svg"
+  },
+  {
+    "id": "m1",
+    "name": "Mike Maignan",
+    "position": "GK",
+    "shirtNumber": 16,
+    "clubId": "milan",
+    "nationalTeamId": "france",
+    "profileImageUrl": "/assets/players/m1.svg"
+  },
+  {
+    "id": "m2",
+    "name": "Theo Hernandez",
+    "position": "LB",
+    "shirtNumber": 19,
+    "clubId": "milan",
+    "nationalTeamId": "france",
+    "profileImageUrl": "/assets/players/m2.svg"
+  },
+  {
+    "id": "m3",
+    "name": "Fikayo Tomori",
+    "position": "CB",
+    "shirtNumber": 23,
+    "clubId": "milan",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/m3.svg"
+  },
+  {
+    "id": "m4",
+    "name": "Malick Thiaw",
+    "position": "CB",
+    "shirtNumber": 28,
+    "clubId": "milan",
+    "nationalTeamId": "germany",
+    "profileImageUrl": "/assets/players/m4.svg"
+  },
+  {
+    "id": "m5",
+    "name": "Davide Calabria",
+    "position": "RB",
+    "shirtNumber": 2,
+    "clubId": "milan",
+    "nationalTeamId": "italy",
+    "profileImageUrl": "/assets/players/m5.svg"
+  },
+  {
+    "id": "m6",
+    "name": "Ismael Bennacer",
+    "position": "CM",
+    "shirtNumber": 4,
+    "clubId": "milan",
+    "nationalTeamId": "algeria",
+    "profileImageUrl": "/assets/players/m6.svg"
+  },
+  {
+    "id": "m7",
+    "name": "Tijjani Reijnders",
+    "position": "CM",
+    "shirtNumber": 14,
+    "clubId": "milan",
+    "nationalTeamId": "netherlands",
+    "profileImageUrl": "/assets/players/m7.svg"
+  },
+  {
+    "id": "m8",
+    "name": "Ruben Loftus-Cheek",
+    "position": "AM",
+    "shirtNumber": 8,
+    "clubId": "milan",
+    "nationalTeamId": "england",
+    "profileImageUrl": "/assets/players/m8.svg"
+  },
+  {
+    "id": "m9",
+    "name": "Christian Pulisic",
+    "position": "RW",
+    "shirtNumber": 10,
+    "clubId": "milan",
+    "nationalTeamId": "usa",
+    "profileImageUrl": "/assets/players/m9.svg"
+  },
+  {
+    "id": "m10",
+    "name": "Rafael Leao",
+    "position": "LW",
+    "shirtNumber": 10,
+    "clubId": "milan",
+    "nationalTeamId": "portugal",
+    "profileImageUrl": "/assets/players/m10.svg"
+  },
+  {
+    "id": "m11",
+    "name": "Olivier Giroud",
+    "position": "ST",
+    "shirtNumber": 9,
+    "clubId": "milan",
+    "nationalTeamId": "france",
+    "profileImageUrl": "/assets/players/m11.svg"
+  }
+]
